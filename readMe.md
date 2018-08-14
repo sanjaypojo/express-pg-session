@@ -2,7 +2,7 @@
 A customizable PostgreSQL session store for Connect / Express
 
 ## Forked from connect-pg-simple
-Most of the code is borrowed from (connect-pg-simple)[https://github.com/voxpelli/node-connect-pg-simple]
+Most of the code is borrowed from [connect-pg-simple](https://github.com/voxpelli/node-connect-pg-simple)
 
 ## Main change
 The only real change is the ability to customize the column names in your session tables. This can be done by supplying a columns option to pgSession. This is a frequent requirement in our workflow and so we made this change.
