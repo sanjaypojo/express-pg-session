@@ -1,8 +1,8 @@
 {
   "name": "express-pg-session",
   "version": "0.1.0",
-  "description": "Highly customizable PostgreSQL session store for Connect/Express",
-  "main": "index.js",
+  "description": "Customizable PostgreSQL session store for Connect/Express",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
