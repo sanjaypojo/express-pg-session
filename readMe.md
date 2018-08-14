@@ -45,7 +45,7 @@ Simple example:
 var session = require('express-session');
 
 app.use(session({
-  store: new (require('connect-pg-simple')(session))(),
+  store: new (require('express-pg-session')(session))(),
   secret: process.env.FOO_COOKIE_SECRET,
   resave: false,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
@@ -57,7 +57,7 @@ Advanced example showing some custom options:
 ```javascript
 var pg = require('pg')
   , session = require('express-session')
-  , pgSession = require('connect-pg-simple')(session);
+  , pgSession = require('express-pg-session')(session);
 
 var pgPool = new pg.Pool({
     // Insert pool options here
@@ -80,7 +80,7 @@ Express 3 (and similar for Connect):
 var express = require('express');
 
 app.use(session({
-  store: new (require('connect-pg-simple')(express.session))(),
+  store: new (require('express-pg-session')(express.session))(),
   secret: process.env.FOO_COOKIE_SECRET,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
