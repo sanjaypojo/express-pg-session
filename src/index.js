@@ -211,20 +211,19 @@ module.exports = function (session) {
    * @access public
    */
 
-  PGStore.prototype.set = function (sessionId, sessionData, fn) {
-    const self = this;
+  PGStore.prototype.set = (sessionId, sessionData, fn) => {
     const expireTime = this.getExpireTime(sessionData.cookie.maxAge);
-    const query = `
+    const query1 = `
       UPDATE ${this.quotedTable()}
       SET ${this.columns.session_data} = $1, expire = to_timestamp($2)
       WHERE ${this.columns.session_id} = $3
       RETURNING ${this.columns.session_id}
     `;
 
-    this.query(query, [sessionId, expireTime, sessionData], function (err, data) {
+    this.query(query1, [sessionData, expireTime, sessionId], (err, data) => {
       if (!err && data === false) {
-        const query = `
-          INSERT INTO ${self.quotedTable()}
+        const query2 = `
+          INSERT INTO ${this.quotedTable()}
           (
             ${this.columns.session_data},
             ${this.columns.expire},
@@ -232,12 +231,12 @@ module.exports = function (session) {
           )
           SELECT $1, to_timestamp($2), $3
           WHERE NOT EXISTS (
-            SELECT 1 FROM ${self.quotedTable()}
+            SELECT 1 FROM ${this.quotedTable()}
             WHERE ${this.columns.session_id} = $4
           )
         `;
 
-        self.query(query, [sessionData, expireTime, sessionId, sessionId], function (err) {
+        this.query(query2, [sessionData, expireTime, sessionId, sessionId], function (err) {
           if (fn) { fn.apply(this, err); }
         });
       } else {
