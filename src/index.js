@@ -211,7 +211,7 @@ module.exports = function (session) {
    * @access public
    */
 
-  PGStore.prototype.set = (sessionId, sessionData, fn) => {
+  PGStore.prototype.set = function (sessionId, sessionData, fn) {
     const expireTime = this.getExpireTime(sessionData.cookie.maxAge);
     const query1 = `
       UPDATE ${this.quotedTable()}
