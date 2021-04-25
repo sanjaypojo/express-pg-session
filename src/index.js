@@ -277,8 +277,8 @@ module.exports = function (session) {
     this.query(
       `UPDATE ${this.quotedTable()}
         SET ${this.columns.expire} = to_timestamp($1)
-        WHERE {this.columns.session_id} = $2
-        RETURNING {this.columns.session_id}
+        WHERE ${this.columns.session_id} = $2
+        RETURNING ${this.columns.session_id}
       `,
       [expireTime, sessionId],
       function (err) { fn(err); }
